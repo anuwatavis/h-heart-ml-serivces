@@ -141,3 +141,32 @@
                  ExtraTreesClassifier(n_jobs=-1, random_state=42)]]), probability_threshold=None, encoded_labels=True, raw_score=False, round=4, verbose=True, ml_usecase=MLUsecase.REGRESSION, display=None)
 2021-05-22 23:58:24,435:INFO:Checking exceptions
 2021-05-22 23:58:24,435:INFO:Preloading libraries
+2021-05-24 19:44:36,225:INFO:Initializing load_model()
+2021-05-24 19:44:36,225:INFO:load_model(model_name=/app/app/h_jorth_et_2, platform=None, authentication=None, verbose=True)
+2021-05-24 19:45:06,878:INFO:Initializing load_model()
+2021-05-24 19:45:06,878:INFO:load_model(model_name=./h_jorth_et_2, platform=None, authentication=None, verbose=True)
+2021-05-24 19:45:07,027:INFO:Initializing predict_model()
+2021-05-24 19:45:07,027:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='class')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    targe...
+                ('binn', 'passthrough'), ('rem_outliers', 'passthrough'),
+                ('cluster_all', 'passthrough'),
+                ('dummy', Dummify(target='class')),
+                ('fix_perfect', Remove_100(target='class')),
+                ('clean_names', Clean_Colum_Names()),
+                ('feature_select', 'passthrough'), ('fix_multi', 'passthrough'),
+                ('dfs', 'passthrough'), ('pca', 'passthrough'),
+                ['trained_model',
+                 ExtraTreesClassifier(n_jobs=-1, random_state=42)]]), probability_threshold=None, encoded_labels=True, raw_score=False, round=4, verbose=True, ml_usecase=MLUsecase.REGRESSION, display=None)
+2021-05-24 19:45:07,028:INFO:Checking exceptions
+2021-05-24 19:45:07,028:INFO:Preloading libraries

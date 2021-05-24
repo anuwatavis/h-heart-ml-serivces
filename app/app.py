@@ -10,7 +10,7 @@ import requests
 
 from datetime import datetime
 app = Flask(__name__)
-UPLOAD_FOLDER = '/app/app/csv_upload_files'
+UPLOAD_FOLDER = './csv_upload_files'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
 #model_lgr = load_model(f'./h_jorth_logistic_regression')
@@ -27,7 +27,7 @@ def predict():
     file = request.files['ecgFile']
     model_idx = request.form['model_idx']
     print(model_idx)
-    model_lgr = load_model('/app/app/' + model_idx)
+    model_lgr = load_model('./' + model_idx)
     print('./ecg_model/' + model_idx)
     filename = file.filename
     # datetime object containing current date and time
