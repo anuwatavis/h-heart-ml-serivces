@@ -1,0 +1,10 @@
+name: face-api-venv
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8.5
+  - Flask
+  - Flask-Cors
+  - numpy
+  - pandas
+  - pycaret

@@ -6,13 +6,14 @@ import numpy as np
 from flask_cors import CORS
 import os
 import uuid
+import requests
 
 from datetime import datetime
 app = Flask(__name__)
-UPLOAD_FOLDER = './csv_upload_files'
+UPLOAD_FOLDER = '/app/app/csv_upload_files'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
-model_lgr = load_model('./h_jorth_logistic_regression')
+#model_lgr = load_model(f'./h_jorth_logistic_regression')
 
 
 @app.route("/")
@@ -22,9 +23,13 @@ def hello():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    print('/predict called')
     file = request.files['ecgFile']
+    model_idx = request.form['model_idx']
+    print(model_idx)
+    model_lgr = load_model('/app/app/' + model_idx)
+    print('./ecg_model/' + model_idx)
     filename = file.filename
-    print(filename)
     # datetime object containing current date and time
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%Y_%H:%M:%S_")
@@ -39,6 +44,7 @@ def predict():
     hjorth_feature = pd.DataFrame([[activity, mobility, complexity]], columns=[
         'activity', 'mobility', 'complexity'])
     predictions = predict_model(model_lgr, data=hjorth_feature)
+    print(predictions)
     return {
         "statusCode": 200,
         "message": 'Infernce with model selected done.',
@@ -52,19 +58,21 @@ def predict():
 
 @app.route('/model', methods=['GET'])
 def model():
-    model_id = request.args.get('modelId')
-    model_description = {
-        "modelName": "H-JORTH SVM",
-        "featureExtractor": "H-JORTH Desecriptor",
-        'machineModel': "Support Vector Machine",
-        "classes": [
-            {"classLabel": "0", "className": "Normal Sinus Rhythm"},
-            {"classLabel": "1", "className": "Atrial Firbrillation"},
-            {"classLabel": "2", "className": "Congestive Heart Failure"},
-        ]
-    }
+    r = requests.get('http://www.google.com')
+    print(r)
+    # model_id = request.args.get('modelId')
+    # model_description = {
+    #     "modelName": "H-JORTH SVM",
+    #     "featureExtractor": "H-JORTH Desecriptor",
+    #     'machineModel': "Support Vector Machine",
+    #     "classes": [
+    #         {"classLabel": "0", "className": "Normal Sinus Rhythm"},
+    #         {"classLabel": "1", "className": "Atrial Firbrillation"},
+    #         {"classLabel": "2", "className": "Congestive Heart Failure"},
+    #     ]
+    # }
 
-    return model_description
+    return "model"
 
 
 def calculateActivity(epoch):
@@ -87,4 +95,6 @@ def calcComplexity(epoch):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    #app.run(host="127.0.0.1", debug=True, port=5000)
+    print('run app now')
+    app.run(host='0.0.0.0', port=8080, debug=True)
